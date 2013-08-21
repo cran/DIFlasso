@@ -1,0 +1,11 @@
+
+
+
+export(
+  "DIFlasso",
+  "refitDIFlasso",
+  "plotDIFlasso",
+  "printDIFlasso",
+  "plotDIFlasso.refit",
+  "printDIFlasso.refit"	
+)
