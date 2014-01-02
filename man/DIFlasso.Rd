@@ -59,22 +59,22 @@ Gunther Schauberger\cr
 \url{http://www.statistik.lmu.de/~schauberger/}
 }
 \seealso{
-\code{\link{refitDIFlasso}}, \code{\link{plotDIFlasso}}, \code{\link{printDIFlasso}}, \code{\link[grplasso]{grplasso}}
+\code{\link{refitDIFlasso}}, \code{\link{plot.DIFlasso}}, \code{\link{print.DIFlasso}}, \code{\link[grplasso]{grplasso}}
 }
 \examples{
 \dontrun{
-data(simul.data)  
+data(simul.data)
 
 Y <- simul.data[,1:10]
 X <- simul.data[,11:13]
 
-m1 <- DIFlasso(Y = Y, X = X, trace = TRUE)  
-printDIFlasso(m1)
-plotDIFlasso(m1)
+m1 <- DIFlasso(Y = Y, X = X, trace = TRUE) 
+print(m1)
+plot(m1)
 
 m2 <- refitDIFlasso(m1)
-printDIFlasso.refit(m2)
-plotDIFlasso.refit(m2)
+print(m2)
+plot(m2)
 }
 }
 \keyword{DIFlasso}

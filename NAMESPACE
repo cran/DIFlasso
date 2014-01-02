@@ -1,11 +1,17 @@
-
-
-
-export(
-  "DIFlasso",
-  "refitDIFlasso",
-  "plotDIFlasso",
-  "printDIFlasso",
-  "plotDIFlasso.refit",
-  "printDIFlasso.refit"	
+export(DIFlasso,
+refitDIFlasso
 )
+
+exportClasses("DIFlasso")
+exportClasses("DIFlasso.refit")
+
+
+S3method(plot, DIFlasso)
+S3method(plot, DIFlasso.refit)
+S3method(print, DIFlasso)
+S3method(print, DIFlasso.refit)
+
+importFrom(miscTools,insertCol)
+importFrom(grplasso,grplasso)
+importFrom(grplasso,lambdamax)
+importFrom(penalized, penalized)

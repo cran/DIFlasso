@@ -1,20 +1,29 @@
-\name{printDIFlasso}
-\alias{printDIFlasso}
+\name{plot.DIFlasso}
+\alias{plot.DIFlasso}
+\alias{plot}
 
 \title{
-Print function for DIFlasso
+Plot function for DIFlasso
 }
 \description{
-Prints the most important output of a DIFlasso object. 
+Plots the estimates of the item-specific parameters of a DIFlasso object. 
 }
 \usage{
-printDIFlasso(dif.obj)
+\method{plot}{DIFlasso}(x, decreasing = TRUE, ...)
 }
 
 \arguments{
-  \item{dif.obj}{DIFlasso object, created by \code{\link{DIFlasso}}
+  \item{x}{
+DIFlasso object, created by \code{\link{DIFlasso}}
+}
+  \item{decreasing}{
+Should the covariates be arranged by decreasing euclidian norm of their parameter estimates. 
+}
+\item{...}{
+Further arguments to be passed to the \code{\link[graphics:plot]{plot}} function.
 }
 }
+
 \references{
 Tutz, Gerhard and Schauberger, Gunther (2013): \emph{A Penalty Approach to Differential Item Functioning in Rasch Models}, Technical Report 134, Department of Statistics, LMU Munich
 }
@@ -24,7 +33,7 @@ Gunther Schauberger\cr
 \url{http://www.statistik.lmu.de/~schauberger/}
 }
 \seealso{
-\code{\link{DIFlasso}}, \code{\link{plotDIFlasso}}
+\code{\link{DIFlasso}}, \code{\link{print.DIFlasso}}
 }
 \examples{
 \dontrun{
@@ -34,12 +43,12 @@ Y <- simul.data[,1:10]
 X <- simul.data[,11:13]
 
 m1 <- DIFlasso(Y = Y, X = X, trace = TRUE) 
-printDIFlasso(m1)
-plotDIFlasso(m1)
+print(m1)
+plot(m1)
 
 m2 <- refitDIFlasso(m1)
-printDIFlasso.refit(m2)
-plotDIFlasso.refit(m2)
+print(m2)
+plot(m2)
 }
 }
 \keyword{DIFlasso}

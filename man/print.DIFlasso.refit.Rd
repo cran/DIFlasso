@@ -1,5 +1,5 @@
-\name{printDIFlasso.refit}
-\alias{printDIFlasso.refit}
+\name{print.DIFlasso.refit}
+\alias{print.DIFlasso.refit}
 
 \title{
 Print function for refitDIFlasso
@@ -8,11 +8,14 @@ Print function for refitDIFlasso
 Prints the most important output of a DIFlasso.refit object.
 }
 \usage{
-printDIFlasso.refit(dif.obj)
+\method{print}{DIFlasso.refit}(x, ...)
 }
 
 \arguments{
-  \item{dif.obj}{DIFlasso.refit object, created by \code{\link{refitDIFlasso}}
+  \item{x}{DIFlasso.refit object, created by \code{\link{refitDIFlasso}}
+}
+\item{...}{
+Further arguments to be passed to the \code{\link[base:print]{print}} function.
 }
 }
 \references{
@@ -24,7 +27,7 @@ Gunther Schauberger\cr
 \url{http://www.statistik.lmu.de/~schauberger/}
 }
 \seealso{
-\code{\link{refitDIFlasso}}, \code{\link{plotDIFlasso.refit}}, \code{\link{DIFlasso}}
+\code{\link{refitDIFlasso}}, \code{\link{plot.DIFlasso.refit}}, \code{\link{DIFlasso}}
 }
 \examples{
 \dontrun{
@@ -34,12 +37,12 @@ Y <- simul.data[,1:10]
 X <- simul.data[,11:13]
 
 m1 <- DIFlasso(Y = Y, X = X, trace = TRUE) 
-printDIFlasso(m1)
-plotDIFlasso(m1)
+print(m1)
+plot(m1)
 
 m2 <- refitDIFlasso(m1)
-printDIFlasso.refit(m2)
-plotDIFlasso.refit(m2)
+print(m2)
+plot(m2)
 }
 }
 \keyword{DIFlasso}

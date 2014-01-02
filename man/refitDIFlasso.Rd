@@ -36,7 +36,7 @@ Gunther Schauberger\cr
 \url{http://www.statistik.lmu.de/~schauberger/}
 }
 \seealso{
-\code{\link{printDIFlasso.refit}}, \code{\link{plotDIFlasso.refit}}, \code{\link{DIFlasso}}
+\code{\link{print.DIFlasso.refit}}, \code{\link{plot.DIFlasso.refit}}, \code{\link{DIFlasso}}
 }
 \examples{
 \dontrun{
@@ -46,12 +46,12 @@ Y <- simul.data[,1:10]
 X <- simul.data[,11:13]
 
 m1 <- DIFlasso(Y = Y, X = X, trace = TRUE) 
-printDIFlasso(m1)
-plotDIFlasso(m1)
+print(m1)
+plot(m1)
 
 m2 <- refitDIFlasso(m1)
-printDIFlasso.refit(m2)
-plotDIFlasso.refit(m2)
+print(m2)
+plot(m2)
 }
 }
 \keyword{DIFlasso}
