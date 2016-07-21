@@ -2,7 +2,7 @@
 \alias{refitDIFlasso}
 
 \title{
-Refit function for DIFlasso
+Refit Function for DIFlasso
 }
 \description{
 Performs the refit of a DIFlasso object. Only the items diagosed as DIF items will be used to perform a new fit of the final model.
@@ -28,7 +28,7 @@ refitDIFlasso(dif.obj)
 \item{names.x}{Names of the covariates}
 }
 \references{
-Tutz, Gerhard and Schauberger, Gunther (2013): \emph{A Penalty Approach to Differential Item Functioning in Rasch Models}, Technical Report 134, Department of Statistics, LMU Munich
+Tutz, Gerhard and Schauberger, Gunther (2015): \emph{A Penalty Approach to Differential Item Functioning in Rasch Models}, Psychometrika, 80(1), 21 - 43
 }
 \author{
 Gunther Schauberger\cr

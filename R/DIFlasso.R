@@ -1,13 +1,13 @@
 DIFlasso <-
-function (Y, X, l.lambda = 20, trace = FALSE) 
+function (Y, X, l.lambda = 20, grouped = TRUE, trace = FALSE, df.type = c("YuanLin", "L2norm")) 
 {
   vardiffs <- abs(apply(X,2,var)-1)
   
   if(sum(vardiffs)>1e-6)
-    stop("X has to be standardized")
+    warning("X is not standardized. In most cases, X should be standardized!")
   
-  if(sum(!apply(Y,2,unique) %in% c(0,1))>0)
-    stop("Y may only contain 0 or 1")
+if(sum(!apply(Y,2,unique) %in% c(0,1))>0)
+  stop("Y either contains values unequal to 0 or 1 or items with only 0 or only 1")
   
   if(!is.data.frame(X))
     stop("X has to be a data.frame")
@@ -16,11 +16,14 @@ function (Y, X, l.lambda = 20, trace = FALSE)
     stop("Y has to be a data.frame")
   
     # print trace?
+    if(grouped){
     if (trace) {
         trace <- 1
     }else {
         trace <- 0
     }
+    }
+  
     # number of persons
     P <- nrow(Y)
     # number of items
@@ -28,6 +31,12 @@ function (Y, X, l.lambda = 20, trace = FALSE)
     # number of covariates
     l <- ncol(X)
     
+    # which type of dfs should be used
+    df.type <- match.arg(df.type)
+      if(!(df.type %in% c("YuanLin", "L2norm"))){
+        stop("Unknown df.type")
+      }
+
     # Convert data.frames into matrices
     names.y <- names(Y)
     names.x <- names(X)
@@ -73,55 +82,91 @@ function (Y, X, l.lambda = 20, trace = FALSE)
     design.matrix <- cbind(help3, -help5, -xp)
     
     # index vector for group lasso penalization
-    index = c(rep(NA, sum(exclu1) + I - 1), rep(1:I, each = l))
+    if(grouped){
+      index = c(rep(NA, sum(exclu1) + I - 1), rep(1:I, each = l))
     
-    # calculate maximal lambda
-    lmax <- lambdamax(design.matrix, XP, index, penscale = sqrt, 
-        model = LogReg(), center = FALSE, standardize = FALSE)
-    
-    # create sequence of lambdas
-    lambda.seq <- seq(from = lmax * 1.05, to = 1e-06, length = l.lambda)
-    
-    # compute group lasso model
-    suppressWarnings(m2 <- grplasso(design.matrix, XP, index, 
-        lambda = lambda.seq, penscale = sqrt, model = LogReg(), 
-        center = FALSE, standardize = FALSE, control = grpl.control(trace = trace)))
-    
-    # index for penalized parameters
-    index2 <- index[!is.na(index)]
-    # parameters for smallest lambda
-    coef.unpen <- m2$coef[!is.na(index), l.lambda]
-    # norm for parameters for smallest lambda
-    norm.unpen <- c()
-    for (o in 1:max(index2)) {
+      # calculate maximal lambda
+      lmax <- lambdamax(design.matrix, XP, index, penscale = sqrt, 
+          model = LogReg(), center = FALSE, standardize = FALSE)
+      
+      # create sequence of lambdas
+      lambda.seq <- seq(from = lmax * 1.05, to = 1e-06, length = l.lambda)
+      
+      # compute group lasso model
+      suppressWarnings(m2 <- grplasso(design.matrix, XP, index, 
+          lambda = lambda.seq, penscale = sqrt, model = LogReg(), 
+          center = FALSE, standardize = FALSE, control = grpl.control(trace = trace)))
+      
+      # index for penalized parameters
+      index2 <- index[!is.na(index)]
+      
+      # parameters for smallest lambda
+      coef.unpen <- m2$coef[!is.na(index), l.lambda]
+      # norm for parameters for smallest lambda
+      norm.unpen <- c()
+      for (o in 1:max(index2)) {
         norm.unpen[o] <- sqrt(sum(coef.unpen[index2 == o]^2))
-    }
-    # group sizes
-    p.j <- table(index2)
-    # matrix of coefficients
-    coefs.unrest <- coefs <- m2$coef
-    # matrix for gammas
-    coefs.grp <- coefs[!is.na(index), ]
-    # norms of gammas
-    norm.gamma <- matrix(0, ncol = ncol(coefs), nrow = max(index2))
-    for (j in 1:ncol(coefs)) {
+      }
+      # group sizes
+      p.j <- table(index2)
+      # matrix of coefficients
+      coefs.unrest <- coefs <- m2$coef
+      # matrix for gammas
+      coefs.grp <- coefs[!is.na(index), ]
+      # norms of gammas
+      norm.gamma <- matrix(0, ncol = ncol(coefs), nrow = max(index2))
+      for (j in 1:ncol(coefs)) {
         for (o in 1:max(index2)) {
-            norm.gamma[o, j] <- sqrt(sum(coefs.grp[index2 == o, 
-                j]^2))
+          norm.gamma[o, j] <- sqrt(sum(coefs.grp[index2 == o, 
+                                                 j]^2))
         }
+      }
+      
+      if(df.type == "YuanLin"){
+        # degrees of freedom of all gammas
+        df.grp <- colSums(norm.gamma > 0) + colSums((norm.gamma/norm.unpen) * 
+                                                      (c(p.j) - 1))
+        # degrees of freedom for thetas and betas
+        df.unpen <- sum(is.na(index))
+        # total degrees of freedom
+        df <- df.grp + df.unpen  
+      }else{
+        # degrees of freedom of all gammas
+        # different from yuan and lin
+        df.grp <-  colSums((norm.gamma/norm.unpen) * c(p.j))
+        # degrees of freedom for thetas and betas
+        df.unpen <- sum(is.na(index))
+        # total degrees of freedom
+        df <- df.grp + df.unpen
+      }
+      
+      # predicted probabilities
+      pi.i <- predict(m2, type = "response")
+      # log likelihood
+      loglik <- colSums(XP * log(pi.i) - XP * log(1 - pi.i) + log(1 - pi.i))
+    }else{
+      m2 <- penalized(response = XP, penalized = design.matrix[,-(1:(P+I-1))], 
+                      unpenalized = design.matrix[,1:(P+I-1)], steps = l.lambda,
+                      lambda1 = 1e-06, trace = trace)
+       
+      coefs.unrest <- coefs <- matrix(unlist(lapply(m2,penalized::coef,"all")),ncol=l.lambda)
+      
+      
+      loglik <- sapply(m2,penalized::loglik)
+      
+      coefs.grp <- matrix(unlist(lapply(m2,penalized::coef,"penalized")),ncol=l.lambda)
+      
+      if(df.type == "YuanLin"){
+        df <- colSums(coefs!=0)  
+      }else{
+        norm <- sqrt(coefs.grp^2)
+        norm <- norm/norm[,ncol(norm)]
+        df <- P + I - 1 + colSums(norm)
+      }
+      
+      lambda.seq <- unlist(lapply(m2,function(x)x@lambda1))
     }
-    # degrees of freedom of all gammas
-    df.grp <- colSums(norm.gamma > 0) + colSums((norm.gamma/norm.unpen) * 
-        (c(p.j) - 1))
-    # degrees of freedom for thetas and betas
-    df.unpen <- sum(is.na(index))
-    # total degrees of freedom
-    df <- df.grp + df.unpen
-    # predicted probabilities
-    pi.i <- predict(m2, type = "response")
-    # log likelihood
-    loglik <- colSums(XP * log(pi.i) - XP * log(1 - pi.i) + log(1 - 
-        pi.i))
+    
     
     # BIC
     bic <- -2 * loglik + df * log(length(XP))
@@ -151,7 +196,12 @@ function (Y, X, l.lambda = 20, trace = FALSE)
     coefs2[(P+I+1):(nrow(coefs2)),] <- coefs.grp
     
     # estimated thetas, centered around reference item ref.item
-    theta.hat <- predict(m2)[ref.item +seq(from=0, to= P*I-I, by=I),]
+    if(grouped){
+      theta.hat <- predict(m2)[ref.item +seq(from=0, to= P*I-I, by=I),]  
+    }else{
+      linpred <- matrix(unlist(lapply(m2,penalized::linear.predictors)),ncol=l.lambda)
+      theta.hat <- linpred[ref.item +seq(from=0, to= P*I-I, by=I),]
+    }
     
     # estimated betas, centered around reference item ref.item
     beta.hat <- coefs[(P):(P + I - 1), ]

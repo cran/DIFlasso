@@ -2,7 +2,7 @@
 \alias{print.DIFlasso}
 
 \title{
-Print function for DIFlasso
+Print Function for DIFlasso
 }
 \description{
 Prints the most important output of a DIFlasso object. 
@@ -19,7 +19,7 @@ Further arguments to be passed to the \code{\link[base:print]{print}} function.
 }
 }
 \references{
-Tutz, Gerhard and Schauberger, Gunther (2013): \emph{A Penalty Approach to Differential Item Functioning in Rasch Models}, Technical Report 134, Department of Statistics, LMU Munich
+Tutz, Gerhard and Schauberger, Gunther (2015): \emph{A Penalty Approach to Differential Item Functioning in Rasch Models}, Psychometrika, 80(1), 21 - 43
 }
 \author{
 Gunther Schauberger\cr
