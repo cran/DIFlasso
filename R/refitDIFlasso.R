@@ -1,6 +1,5 @@
-refitDIFlasso <-
-function(dif.obj){
-    
+refitDIFlasso <- function(dif.obj){
+
     P <- dif.obj$P
     I <- dif.obj$I
     l <- dif.obj$m
@@ -16,13 +15,15 @@ function(dif.obj){
     form2 <- as.formula(paste("~ ",paste("V",1:(ncol(refit.data)-1),sep="",collapse="+"),sep=""))
     XP1 <- refit.data$XP1
     
-    unres2<-penalized(response=XP1,unpenalized=form1,penalized=form2,lambda1=0,lambda2=0.0001,data=refit.data,model="logistic")
+    unres2 <- penalized(response=XP1,unpenalized=form1,penalized=form2,
+                        lambda1=0,lambda2=0.0001,data=refit.data,model="logistic")
+    coefs <- unres2@penalized
     
-    theta <- head(coef(unres2),P)
-    beta <- coef(unres2)[(P+1):(P+I-1)]
+    theta <- head(coefs,P)
+    beta <- coefs[(P+1):(P+I-1)]
     beta <- append(beta,0,dif.obj$ref.item-1)
     names(beta)<-names.y
-    gamma <- matrix(tail(coef(unres2),length(dif.obj$dif.items)*l),nrow=l)
+    gamma <- matrix(tail(coefs,length(dif.obj$dif.items)*l),nrow=l)
     dimnames(gamma) <- list(names.x,names.y[dif.obj$dif.items])
     
   returns <- list(theta = theta, beta = beta, gamma = gamma, P = P, I = I, m = l, 

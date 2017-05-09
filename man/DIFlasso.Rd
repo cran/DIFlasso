@@ -70,7 +70,7 @@ Journal of the Royal Statistical Society B, 68(1), 49 - 67
 \author{
 Gunther Schauberger\cr
 \email{gunther.schauberger@stat.uni-muenchen.de}\cr
-\url{http://www.statistik.lmu.de/~schauberger/}
+\url{http://www.semsto.statistik.uni-muenchen.de/personen/doktoranden/schauberger/index.html}
 }
 \seealso{
 \code{\link{refitDIFlasso}}, \code{\link{plot.DIFlasso}}, \code{\link{print.DIFlasso}}, \code{\link[grplasso]{grplasso}}

@@ -16,7 +16,7 @@ Computation is based on the function \code{\link[grplasso]{grplasso}}.  \code{\l
 \author{
 Gunther Schauberger\cr
 \email{gunther.schauberger@stat.uni-muenchen.de}\cr
-\url{http://www.statistik.lmu.de/~schauberger/}
+\url{http://www.semsto.statistik.uni-muenchen.de/personen/doktoranden/schauberger/index.html}
 }
 \references{
 Tutz, Gerhard and Schauberger, Gunther (2015): \emph{A Penalty Approach to Differential Item Functioning in Rasch Models}, Psychometrika, 80(1), 21 - 43
