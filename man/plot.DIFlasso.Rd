@@ -29,8 +29,8 @@ Tutz, Gerhard and Schauberger, Gunther (2015): \emph{A Penalty Approach to Diffe
 }
 \author{
 Gunther Schauberger\cr
-\email{gunther.schauberger@stat.uni-muenchen.de}\cr
-\url{http://www.semsto.statistik.uni-muenchen.de/personen/doktoranden/schauberger/index.html}
+\email{gunther.schauberger@tum}\cr
+\url{https://www.sg.tum.de/epidemiologie/team/schauberger/}
 }
 \seealso{
 \code{\link{DIFlasso}}, \code{\link{print.DIFlasso}}

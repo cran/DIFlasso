@@ -69,8 +69,8 @@ Journal of the Royal Statistical Society B, 68(1), 49 - 67
 }
 \author{
 Gunther Schauberger\cr
-\email{gunther.schauberger@stat.uni-muenchen.de}\cr
-\url{http://www.semsto.statistik.uni-muenchen.de/personen/doktoranden/schauberger/index.html}
+\email{gunther.schauberger@tum}\cr
+\url{https://www.sg.tum.de/epidemiologie/team/schauberger/}
 }
 \seealso{
 \code{\link{refitDIFlasso}}, \code{\link{plot.DIFlasso}}, \code{\link{print.DIFlasso}}, \code{\link[grplasso]{grplasso}}

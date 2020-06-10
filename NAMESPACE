@@ -2,9 +2,6 @@ export(DIFlasso,
 refitDIFlasso
 )
 
-exportClasses("DIFlasso")
-exportClasses("DIFlasso.refit")
-
 
 S3method(plot, DIFlasso)
 S3method(plot, DIFlasso.refit)

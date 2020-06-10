@@ -1,5 +1,5 @@
-f9a36e37dc19a0f2d7eb44202e8af852 *DESCRIPTION
-81090e9de8983a7d69c3727e286ae8f3 *NAMESPACE
+e42681b55716e6b644c4beac477e7332 *DESCRIPTION
+2090d8bcc59a41d86c798a4fb08c49b7 *NAMESPACE
 648db36caec764ec3fbcb0291f15a0a6 *R/DIFlasso.R
 30da3c6ffe9634f0ea86707936c93f61 *R/plot.DIFlasso.R
 a5da3a9f4b48ce7bcd1e4749cbd72aa8 *R/plot.DIFlasso.refit.R
@@ -7,11 +7,11 @@ a5da3a9f4b48ce7bcd1e4749cbd72aa8 *R/plot.DIFlasso.refit.R
 787f1573add406dd0e6d0bdd047f4bb3 *R/print.DIFlasso.refit.R
 33fe73ad0b54769aed43043178c5bdfe *R/refitDIFlasso.R
 6f86099ec98501b1cf6942a7027adb95 *data/simul.data.rda
-267d37f7e8036a5b636010b088889233 *man/DIFlasso-package.Rd
-6b9277ac5a0a68cf8c97ac0790741cb5 *man/DIFlasso.Rd
-56eb097ce9c37e82477dba5a076516d8 *man/plot.DIFlasso.Rd
-bb16be0859882cc361e66acb1e102a5d *man/plot.DIFlasso.refit.Rd
-b5ec3f97a614950e8489540786fd0d85 *man/print.DIFlasso.Rd
-bf8193cdab299e2f3822117cac8f86c2 *man/print.DIFlasso.refit.Rd
-74b92cffd9ba2d3be61b46536869eeb6 *man/refitDIFlasso.Rd
+2a3c4c3eb94649a616c0eece07eed13f *man/DIFlasso-package.Rd
+2750e288499892f5bd77a67e16a8faad *man/DIFlasso.Rd
+71bc416a660e689f0f7eef56a2c6aecf *man/plot.DIFlasso.Rd
+bae6140f151e06bb0a43328687e7e2d0 *man/plot.DIFlasso.refit.Rd
+9dbc178a544aaeadffa215213dc89cb4 *man/print.DIFlasso.Rd
+197e7bda1e50f10fe142e334ecf1d0cf *man/print.DIFlasso.refit.Rd
+fa1094711fa2c20d6ef8c77a9f0faae9 *man/refitDIFlasso.Rd
 3056c180616d0d064e017bb3c6b2e064 *man/simul.data.Rd
